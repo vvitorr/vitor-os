@@ -27,13 +27,14 @@ async function getSpotify() {
     const headers = { Authorization: `Bearer ${(await tokenRes.json()).access_token}` };
     const [nowRes, recentRes] = await Promise.all([
       fetch("https://api.spotify.com/v1/me/player/currently-playing", { headers }),
-      fetch("https://api.spotify.com/v1/me/player/recently-played?limit=10", { headers }),
+      fetch("https://api.spotify.com/v1/me/player/recently-played?limit=20", { headers }),
     ]);
     const now = nowRes.status === 200 ? await nowRes.json() : null;
     const recent = recentRes.ok ? await recentRes.json() : { items: [] };
     return {
       nowPlaying: now?.item && now.is_playing ? toTrack(now.item) : null,
-      recent: (recent.items as { track: Track }[]).map((i) => toTrack(i.track)),
+      // Same song played several times shows once.
+      recent: [...new Map((recent.items as { track: Track }[]).map((i) => toTrack(i.track)).map((t) => [`${t.name}|${t.artist}`, t])).values()],
     };
   } catch (e) {
     console.error("Spotify fetch failed", e);

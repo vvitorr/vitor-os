@@ -37,8 +37,8 @@ npm run dev
 Copy `.env.example` to `.env.local` and add the same keys in Vercel → Settings → Environment Variables.
 Apps show an "offline" message when keys are missing.
 
-- **Spotify**: create an app at developer.spotify.com (redirect URI `http://127.0.0.1:8888/callback`), then
-  `SPOTIFY_CLIENT_ID=... SPOTIFY_CLIENT_SECRET=... node scripts/spotify-token.mjs` and copy the printed refresh token.
+- **Spotify**: create an app at developer.spotify.com (Web API, redirect URI `http://127.0.0.1:8888/callback`),
+  put its Client ID and Secret in `.env.local`, then run `npm run spotify:token` and approve. The refresh token is saved to `.env.local`.
 - **PlayStation**: unofficial API (`psn-api`). Sign in at playstation.com, open
   `https://ca.account.sony.com/api/v1/ssocookie`, copy the `npsso` value into `PSN_NPSSO`. It expires after ~2 months.
 
