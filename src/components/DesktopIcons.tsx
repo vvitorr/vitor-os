@@ -6,7 +6,7 @@ export type DesktopItem = { id: string; label: string; icon: ReactNode; activate
 type Pos = { x: number; y: number };
 
 // Icon positions persist in localStorage; read through an external store so SSR and hydration agree.
-const KEY = "desktop-positions";
+const KEY = "desktop-positions-v2"; // v2: default layout changed to the scattered middle
 const EMPTY: Record<string, Pos> = {};
 const listeners = new Set<() => void>();
 let raw: string | null = null;
@@ -32,7 +32,19 @@ const save = (id: string, p: Pos) => {
   listeners.forEach((l) => l());
 };
 
-const SLOT = 96; // default column spacing, top-right like macOS
+// Default layout: scattered around the middle of the screen (offsets from centre, px).
+const SCATTER = [
+  [-270, -150],
+  [150, -190],
+  [-80, 10],
+  [230, 40],
+  [-340, 110],
+  [60, 170],
+];
+const scattered = (i: number) => {
+  const [dx, dy] = SCATTER[i % SCATTER.length];
+  return { left: `clamp(8px, calc(50% + ${dx - 48}px), calc(100% - 104px))`, top: `clamp(40px, calc(45% + ${dy}px), calc(100% - 200px))` };
+};
 
 export default function DesktopIcons({ items, selected, onSelect }: { items: DesktopItem[]; selected: string | null; onSelect: (id: string) => void }) {
   const saved = useSyncExternalStore(subscribe, read, () => EMPTY);
@@ -44,7 +56,7 @@ export default function DesktopIcons({ items, selected, onSelect }: { items: Des
     <>
       {items.map((d, i) => {
         const p = drag?.id === d.id ? drag : saved[d.id];
-        const style = p ? { left: p.x, top: p.y } : { right: 14, top: 44 + i * SLOT };
+        const style = p ? { left: p.x, top: p.y } : scattered(i);
         return (
           <button
             key={d.id}

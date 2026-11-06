@@ -689,6 +689,72 @@ html[data-theme='light'] .menubar {
   border-radius: 10px;
 }
 
+.pin {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  outline: none;
+  user-select: none;
+}
+
+.pin-lock {
+  font-size: 34px;
+}
+
+.pin-dots {
+  display: flex;
+  gap: 14px;
+  margin: 10px 0 14px;
+}
+
+.pin-dots span {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1.5px solid var(--win-fg);
+  opacity: 0.7;
+}
+
+.pin-dots span.on {
+  background: var(--win-fg);
+}
+
+.pin-dots.wrong {
+  animation: pin-shake 360ms;
+}
+
+@keyframes pin-shake {
+  20%,
+  60% {
+    transform: translateX(-8px);
+  }
+  40%,
+  80% {
+    transform: translateX(8px);
+  }
+}
+
+.pin-pad {
+  display: grid;
+  grid-template-columns: repeat(3, 56px);
+  gap: 10px;
+}
+
+.pin-pad button {
+  height: 56px;
+  border-radius: 50%;
+  font-size: 22px;
+  background: var(--hover-strong);
+}
+
+.pin-pad button:active {
+  background: var(--select);
+  color: #fff;
+}
+
 /* ── Spotify / PSN lists ───────────────────────────── */
 .track {
   display: flex;
