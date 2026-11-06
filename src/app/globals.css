@@ -100,7 +100,6 @@ html[data-theme='dark'] {
 /* Editor, game and terminal stay dark in both themes. */
 .window:has(.code),
 .window:has(.games),
-.window:has(.bughunt),
 .window:has(.terminal) {
   --win-bg: rgba(30, 30, 32, 0.95);
   --win-solid: rgba(30, 30, 32, 0.97);
@@ -816,47 +815,6 @@ a.track:hover {
 .tk-com {
   color: #7f8c98;
   font-style: italic;
-}
-
-/* ── Bug Hunt ──────────────────────────────────────── */
-.bughunt {
-  position: relative;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.bh-hud {
-  display: flex;
-  gap: 18px;
-  padding: 8px 16px;
-  font-variant-numeric: tabular-nums;
-  font-weight: 600;
-}
-
-.bughunt canvas {
-  flex: 1;
-  width: 100%;
-  min-height: 0;
-  cursor: crosshair;
-  touch-action: none;
-}
-
-.bh-overlay {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  text-align: center;
-  background: rgba(0, 0, 0, 0.35);
-}
-
-.bh-overlay button {
-  font-size: 14px;
-  padding: 6px 18px;
 }
 
 /* ── Games ───────────────────────────────────────── */
