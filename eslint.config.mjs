@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // osascript (JXA) helper, not browser/Node code
+    "scripts/appicon.js",
   ]),
 ]);
 

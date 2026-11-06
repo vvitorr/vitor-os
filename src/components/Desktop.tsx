@@ -104,10 +104,6 @@ export default function Desktop({ icons }: { icons: Record<string, string> }) {
             </button>
           ))}
         </div>
-        <div className="desktop-hint">
-          <h1>{profile.name}</h1>
-          <p>{profile.role}</p>
-        </div>
         {wins.map((w) => {
           const app = appById(w.id)!;
           const C = app.Component!;

@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 
 const BOOT_SCRIPT = `try{var d=document.documentElement,s=localStorage;
 d.dataset.theme=s.getItem('theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
-d.dataset.wallpaper=s.getItem('wallpaper')||'bigsur';
+d.dataset.wallpaper=s.getItem('wallpaper')||'tahoe';
 if(sessionStorage.getItem('booted'))d.dataset.booted='1'}catch(e){}`;
 
 export const viewport: Viewport = { themeColor: "#0a0a0c" };

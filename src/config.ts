@@ -80,12 +80,15 @@ export const photos: { src: string; caption: string }[] = [
   { src: "/photos/6.svg", caption: "Placeholder" },
 ];
 
-// Desktop wallpapers: free Unsplash License photos, hotlinked from the Unsplash CDN.
-// URLs live in globals.css (html[data-wallpaper=…]) so the right one paints before React loads.
+// Desktop wallpapers: Apple's originals (via 512pixels.net), resized into public/wallpapers/<id>-light|dark.jpg.
+// Each has a light and dark variant that follows the appearance setting. CSS maps html[data-wallpaper] to the files.
 export const wallpapers = [
-  { id: "bigsur", label: "Big Sur (dynamic)", credit: "Matthew Mentley / Jenna Beekhuis" },
-  { id: "bigsur-coast", label: "Big Sur Coast", credit: "Vijayalakshmi Nidugondi" },
-  { id: "mojave", label: "Mojave", credit: "Matt Artz" },
-  { id: "catalina", label: "Catalina", credit: "Dan Cutler" },
-  { id: "golden-hour", label: "Golden Hour", credit: "Jessica Ruscello" },
+  { id: "tahoe", label: "macOS Tahoe" },
+  { id: "sequoia", label: "macOS Sequoia" },
+  { id: "sonoma", label: "macOS Sonoma" },
+  { id: "ventura", label: "macOS Ventura" },
+  { id: "monterey", label: "macOS Monterey" },
+  { id: "bigsur", label: "macOS Big Sur" },
+  { id: "catalina", label: "macOS Catalina" },
+  { id: "mojave", label: "macOS Mojave" },
 ];

@@ -6,7 +6,7 @@ import { setHtmlData, useDesktop, useHtmlData } from "@/lib/desktop";
 export default function ContextMenu({ x, y, onClose }: { x: number; y: number; onClose: () => void }) {
   const { open } = useDesktop();
   const theme = useHtmlData("theme", "dark");
-  const wallpaper = useHtmlData("wallpaper", "bigsur");
+  const wallpaper = useHtmlData("wallpaper", "tahoe");
   const run = (fn: () => void) => () => {
     fn();
     onClose();

@@ -115,55 +115,57 @@ html[data-theme='dark'] {
   --win-bg: rgba(18, 18, 20, 0.86);
 }
 
-/* ── Wallpaper: free Unsplash License photos (credits in README) ── */
+/* ── Wallpaper: Apple's originals, light/dark variant follows the appearance ── */
+:root {
+  --wp-light: url('/wallpapers/tahoe-light.jpg');
+  --wp-dark: url('/wallpapers/tahoe-dark.jpg');
+}
+
+html[data-wallpaper='sequoia'] {
+  --wp-light: url('/wallpapers/sequoia-light.jpg');
+  --wp-dark: url('/wallpapers/sequoia-dark.jpg');
+}
+
+html[data-wallpaper='sonoma'] {
+  --wp-light: url('/wallpapers/sonoma-light.jpg');
+  --wp-dark: url('/wallpapers/sonoma-dark.jpg');
+}
+
+html[data-wallpaper='ventura'] {
+  --wp-light: url('/wallpapers/ventura-light.jpg');
+  --wp-dark: url('/wallpapers/ventura-dark.jpg');
+}
+
+html[data-wallpaper='monterey'] {
+  --wp-light: url('/wallpapers/monterey-light.jpg');
+  --wp-dark: url('/wallpapers/monterey-dark.jpg');
+}
+
+html[data-wallpaper='bigsur'] {
+  --wp-light: url('/wallpapers/bigsur-light.jpg');
+  --wp-dark: url('/wallpapers/bigsur-dark.jpg');
+}
+
+html[data-wallpaper='catalina'] {
+  --wp-light: url('/wallpapers/catalina-light.jpg');
+  --wp-dark: url('/wallpapers/catalina-dark.jpg');
+}
+
+html[data-wallpaper='mojave'] {
+  --wp-light: url('/wallpapers/mojave-light.jpg');
+  --wp-dark: url('/wallpapers/mojave-dark.jpg');
+}
+
 .wallpaper {
   position: fixed;
   inset: 0;
   z-index: -1;
   background: #1c1c1e center / cover no-repeat;
-  background-image: url('https://images.unsplash.com/photo-1727460531671-62e62267350e?w=2560&q=80&auto=format&fit=crop');
-  transition: background-image 0.4s;
+  background-image: var(--wp-light);
 }
 
 html[data-theme='dark'] .wallpaper {
-  background-image: url('https://images.unsplash.com/photo-1441154283565-f88df169765a?w=2560&q=80&auto=format&fit=crop');
-}
-
-html[data-wallpaper='bigsur-coast'] .wallpaper {
-  background-image: url('https://images.unsplash.com/photo-1717685339570-fd861183be07?w=2560&q=80&auto=format&fit=crop');
-}
-
-html[data-wallpaper='mojave'] .wallpaper {
-  background-image: url('https://images.unsplash.com/photo-1509223397999-28fd1c5f11f5?w=2560&q=80&auto=format&fit=crop');
-}
-
-html[data-wallpaper='catalina'] .wallpaper {
-  background-image: url('https://images.unsplash.com/photo-1672167109138-f0ac5cde877d?w=2560&q=80&auto=format&fit=crop');
-}
-
-html[data-wallpaper='golden-hour'] .wallpaper {
-  background-image: url('https://images.unsplash.com/photo-1470596914251-afb0b4510279?w=2560&q=80&auto=format&fit=crop');
-}
-
-@media (max-width: 767px) {
-  .wallpaper {
-    background-image: url('https://images.unsplash.com/photo-1727460531671-62e62267350e?w=1280&q=80&auto=format&fit=crop');
-  }
-  html[data-theme='dark'] .wallpaper {
-    background-image: url('https://images.unsplash.com/photo-1441154283565-f88df169765a?w=1280&q=80&auto=format&fit=crop');
-  }
-  html[data-wallpaper='bigsur-coast'] .wallpaper {
-    background-image: url('https://images.unsplash.com/photo-1717685339570-fd861183be07?w=1280&q=80&auto=format&fit=crop');
-  }
-  html[data-wallpaper='mojave'] .wallpaper {
-    background-image: url('https://images.unsplash.com/photo-1509223397999-28fd1c5f11f5?w=1280&q=80&auto=format&fit=crop');
-  }
-  html[data-wallpaper='catalina'] .wallpaper {
-    background-image: url('https://images.unsplash.com/photo-1672167109138-f0ac5cde877d?w=1280&q=80&auto=format&fit=crop');
-  }
-  html[data-wallpaper='golden-hour'] .wallpaper {
-    background-image: url('https://images.unsplash.com/photo-1470596914251-afb0b4510279?w=1280&q=80&auto=format&fit=crop');
-  }
+  background-image: var(--wp-dark);
 }
 
 /* ── Desktop ───────────────────────────────────────── */
@@ -172,34 +174,6 @@ html[data-wallpaper='golden-hour'] .wallpaper {
   inset: 0;
   user-select: none;
   color: var(--win-fg);
-}
-
-.desktop-hint {
-  position: absolute;
-  left: 50%;
-  top: 30%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  pointer-events: none;
-  color: #fff;
-  text-shadow:
-    0 1px 3px rgba(0, 0, 0, 0.45),
-    0 2px 24px rgba(0, 0, 0, 0.35);
-}
-
-.desktop-hint h1 {
-  font-size: clamp(32px, 6vw, 60px);
-  font-weight: 700;
-  letter-spacing: -0.04em;
-}
-
-.desktop-hint p {
-  font-size: 15px;
-  font-weight: 500;
-  margin-top: 4px;
-  text-shadow:
-    0 1px 2px rgba(0, 0, 0, 0.6),
-    0 2px 16px rgba(0, 0, 0, 0.4);
 }
 
 .desktop-icons {
@@ -264,16 +238,9 @@ html[data-wallpaper='golden-hour'] .wallpaper {
     color 0.3s;
 }
 
-/* Readable text per wallpaper while the bar is transparent. */
-html[data-theme='light'] .menubar,
-html[data-wallpaper='bigsur-coast'] .menubar,
-html[data-wallpaper='catalina'] .menubar,
-html[data-wallpaper='golden-hour'] .menubar {
+/* Apple's light wallpapers are made for dark menu bar text, dark ones for white. */
+html[data-theme='light'] .menubar {
   --bar-fg: #1d1d1f;
-}
-
-html[data-wallpaper='mojave'] .menubar {
-  --bar-fg: #fff;
 }
 
 .desktop:has(> div:not([hidden]) > .window) .menubar {
@@ -1342,7 +1309,7 @@ html[data-booted] .boot {
   }
 
   /* A fullscreen window covers the desktop anyway; hide it so it can't bleed through. */
-  .desktop:has(> div:not([hidden]) > .window) :is(.desktop-hint, .desktop-icons) {
+  .desktop:has(> div:not([hidden]) > .window) .desktop-icons {
     display: none;
   }
 }
