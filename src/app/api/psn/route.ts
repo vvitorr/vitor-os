@@ -4,6 +4,7 @@ import {
   exchangeNpssoForAccessCode,
   getProfileFromAccountId,
   getProfileFromUserName,
+  getRecentlyPlayedGames,
   getUserTitles,
   getUserTrophyProfileSummary,
 } from "psn-api";
@@ -18,10 +19,15 @@ async function getPsn() {
     const auth = await exchangeAccessCodeForAuthTokens(await exchangeNpssoForAccessCode(npsso));
     // The profile endpoint rejects "me"; the trophy summary returns the real account id.
     const summary = await getUserTrophyProfileSummary(auth, "me");
-    const [profile, titles] = await Promise.all([
+    const [profile, titles, recent] = await Promise.all([
       getProfileFromAccountId(auth, summary.accountId),
-      getUserTitles(auth, summary.accountId, { limit: 6 }),
+      getUserTitles(auth, summary.accountId, { limit: 50 }),
+      // Sorted by last played (trophy titles are sorted by last trophy earned).
+      getRecentlyPlayedGames(auth, { limit: 6, categories: ["ps4_game", "ps5_native_game"] }),
     ]);
+    // Trophy % by game name; store and trophy names differ in ™/®/’ marks.
+    const key = (n: string) => n.toLowerCase().replace(/[™®©]/g, "").replace(/[’‘]/g, "'").trim();
+    const progress = new Map(titles.trophyTitles.map((t) => [key(t.trophyTitleName), t.progress]));
     // Real name (shared on the PSN profile) instead of the username; legacy endpoint keyed by online id.
     const detail = (await getProfileFromUserName(auth, profile.onlineId)).profile.personalDetail;
     return {
@@ -31,11 +37,12 @@ async function getPsn() {
       level: summary.trophyLevel,
       progress: summary.progress,
       trophies: summary.earnedTrophies,
-      games: titles.trophyTitles.map((t) => ({
-        name: t.trophyTitleName,
-        icon: t.trophyTitleIconUrl,
-        platform: t.trophyTitlePlatform,
-        progress: t.progress,
+      games: recent.data.gameLibraryTitlesRetrieve.games.map((g) => ({
+        name: g.name,
+        icon: g.image?.url ?? null,
+        platform: g.platform,
+        lastPlayed: g.lastPlayedDateTime,
+        progress: progress.get(key(g.name)) ?? null,
       })),
     };
   } catch (e) {
