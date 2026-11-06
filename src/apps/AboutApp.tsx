@@ -1,6 +1,10 @@
+"use client";
+
 import { education, languages, profile } from "@/config";
+import { useDesktop } from "@/lib/desktop";
 
 export default function AboutApp() {
+  const { open } = useDesktop();
   const initials = profile.name.split(" ").map((p) => p[0]).join("");
   return (
     <div className="about">
@@ -18,6 +22,8 @@ export default function AboutApp() {
       <h2>Languages</h2>
       <p className="muted">{languages.map((l) => `${l.name} (${l.level})`).join(" · ")}</p>
       <div className="links">
+        <button className="liquid-glass-chip" onClick={() => open("finder")}>Projects</button>
+        <button className="liquid-glass-chip" onClick={() => open("code")}>Skills</button>
         <a href={`https://github.com/${profile.github}`} target="_blank" rel="noreferrer" className="liquid-glass-chip">GitHub</a>
         <a href={profile.linkedin} target="_blank" rel="noreferrer" className="liquid-glass-chip">LinkedIn</a>
         <a href={`mailto:${profile.email}`} className="liquid-glass-chip">Email</a>

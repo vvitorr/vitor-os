@@ -607,43 +607,6 @@ html[data-theme='light'] .menubar {
   margin-top: 14px;
 }
 
-/* ── GitHub ────────────────────────────────────────── */
-.app-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 14px;
-  font-size: 12px;
-}
-
-.repo-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 10px;
-}
-
-.repo {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  padding: 12px;
-  border-radius: 12px;
-  transition: background 150ms;
-}
-
-.repo:hover {
-  background: var(--hover);
-}
-
-.repo p {
-  font-size: 12.5px;
-  flex: 1;
-}
-
-.repo .chips {
-  font-size: 11px;
-}
-
 /* ── Photos ────────────────────────────────────────── */
 .photos {
   position: relative;
@@ -1038,6 +1001,20 @@ a.track:hover {
   word-break: break-word;
 }
 
+.tag-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 4px;
+  vertical-align: 1px;
+}
+
+.finder-side .tag-dot {
+  margin: 0 2px 0 3px;
+  align-self: center;
+}
+
 .finder-item.selected .finder-icon {
   background: var(--hover-strong);
 }
@@ -1109,22 +1086,6 @@ a.track:hover {
   background: var(--select);
   color: #fff;
   font-weight: 500;
-}
-
-.resume h1 {
-  font-size: 26px;
-}
-
-.resume h2 {
-  margin: 16px 0 4px;
-}
-
-.resume p {
-  margin: 2px 0;
-}
-
-.resume a {
-  text-decoration: underline;
 }
 
 /* ── Spotlight ─────────────────────────────────────── */

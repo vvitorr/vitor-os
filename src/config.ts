@@ -20,40 +20,161 @@ export const languages = [
   { name: "English", level: "B2" },
 ];
 
-export const projects: { name: string; stack: string; date: string; url?: string; points: string[] }[] = [
+export type ProjectTag = "Software" | "Networking" | "Web";
+
+// The only place projects live. Finder shows them; Spotlight and the Terminal just point there.
+// Curated from GitHub (owned, org and contributed repos) plus the CV. Private repos have no url.
+export const projects: {
+  name: string;
+  period: string;
+  role: string;
+  tags: ProjectTag[];
+  stack: string;
+  summary: string;
+  points: string[];
+  url?: string; // public repo
+  live?: string; // live site
+}[] = [
+  {
+    name: "LaPrizza Information System",
+    period: "Sep 2026 – present",
+    role: "Team of 4 · top committer",
+    tags: ["Software", "Web"],
+    stack: "TypeScript, Node.js, Express, Prisma, PostgreSQL, Redis, React, Three.js, Prolog, Docker, Nginx",
+    summary:
+      "Information system for a pizza chain: customers, product catalogue, pizza configuration and stock, with orders and kitchen scheduling next. Semester 5 integrative project at ISEP.",
+    points: [
+      "REST API (/api/v1) with domain rules kept independent of Express and Prisma; PostgreSQL enforces the same invariants",
+      "Built authorization enforcement and secure sessions (JWT, OpenID Connect) for role-based access",
+      "Set up deployment to the DEI virtual servers: pull-based deploy script, Nginx reverse proxy serving the SPA, health checks and per-run test archives",
+      "Added the frontend CI gate and refreshed the storefront UI (search, product photos)",
+    ],
+  },
+  {
+    name: "Midi8 Web Projects",
+    period: "Oct 2026",
+    role: "Contributor",
+    tags: ["Web"],
+    stack: "Next.js, React, TypeScript, Supabase, Canvas 2D",
+    summary: "Midi8 is a small software studio building websites and restaurant systems for local businesses.",
+    points: [
+      "Gulas Platform: digital menu, table QR ordering, take-away, real-time kitchen display and BI dashboards (Next.js 16 + Supabase Realtime). I synced the menu catalogue and product images",
+      "Midi8 website: fixed mobile canvas scaling and made the procedural Perlin hero static on mobile for performance",
+      "Restaurant digital menu: revamped the app and replaced Firebase with a local store",
+    ],
+    url: "https://github.com/Midi-8",
+    live: "https://gulas-iota.vercel.app",
+  },
+  {
+    name: "Enterprise Network Lab",
+    period: "Sep – Oct 2026",
+    role: "Team of 4",
+    tags: ["Networking"],
+    stack: "Cisco IOS XE, IPsec, OSPF, NAT, ACLs, SNMP, Syslog, Ansible",
+    summary: "Final lab of CCNA Enterprise Networking, Security and Automation at ISEP Academy, on real Cisco hardware.",
+    points: [
+      "My part: site-to-site IPsec VPN tunnels and co-deployment of IP telephony",
+      "Team: OSPF routing, static and dynamic NAT, NTP, ACL and VTY hardening, Syslog/SNMP, Ansible configuration backups",
+      "3 routers, 4 switches, 2 multilayer switches, a WLC with lightweight APs and IP phones",
+    ],
+  },
   {
     name: "Multi-Site Campus Network",
+    period: "May – Aug 2026",
+    role: "Team of 4",
+    tags: ["Networking"],
     stack: "Cisco IOS, VLANs, HSRP, DHCP, WLC",
-    date: "June 2026",
+    summary: "Final lab of CCNA Switching, Routing and Wireless Essentials: a 3-site enterprise network (Zagreb, Pula, Split).",
     points: [
-      "IPv4 addressing for a 3-site enterprise topology, hierarchical subnetting across 20+ VLAN segments",
+      "My part: the IPv4 addressing plan, hierarchical subnetting across 20+ VLAN segments, DHCP and static routing",
       "EtherChannel and inter-site static routing with primary/backup paths and floating routes",
-      "DHCPv4, VLAN trunking, RSTP and HSRP for Layer 2/3 redundancy in the campus core",
+      "RSTP and HSRP for Layer 2/3 redundancy in the campus core",
       "Multi-site wireless with WLC, FlexConnect APs, AP Groups and per-site WLANs (staff/guests)",
     ],
   },
   {
-    name: "ProofPocket",
-    stack: "React Native, TypeScript, Python, AWS, Terraform",
-    date: "May 2026",
-    url: "https://github.com/vvitorr/ProofPocket-CodeSpring_2026",
+    name: "AIControl (AISafe)",
+    period: "Mar – Jun 2026",
+    role: "Team of 5 · top committer",
+    tags: ["Software"],
+    stack: "Java, JPA/Hibernate, PostgreSQL, TCP/UDP, ANTLR, C",
+    summary:
+      "Backoffice for AISafe, a flight-control startup: airports, air control areas, aircraft models, routes, pilots, weather and flight plans. Semester 4 integrative project.",
     points: [
-      "Privacy-first phishing detection platform built at a hackathon (team): Expo mobile app + Chrome extension that intercepts external links",
-      "Serverless AWS backend (API Gateway, Lambda, DynamoDB, SQS) with Amazon Bedrock for AI risk classification",
-      "AWS Cognito auth (sign-up, email confirmation, JWT) shared across mobile and browser clients",
-      "On-device scan history (SecureStore); infrastructure as code with Terraform",
+      "DDD layered architecture (domain, application, persistence, console UI) on JPA/Hibernate + PostgreSQL, with 1,000+ JUnit tests",
+      "Custom TCP protocol for remote ATCC, pilot and weather clients with role-based auth and opcode routing; UDP audit logging",
+      "Flight-plan DSL in ANTLR4, validated against a C physics simulator (IPC, shared memory)",
+      "My work included the TCP login flow, pessimistic locking with transactional rollback, and the flight-plan validation UI and tests",
+    ],
+    url: "https://github.com/vvitorr/Aircraft_Simulation",
+  },
+  {
+    name: "ProofPocket",
+    period: "May 2026",
+    role: "Hackathon team of 4",
+    tags: ["Software", "Web"],
+    stack: "React Native (Expo), TypeScript, Python, AWS, Terraform",
+    summary: "Privacy-first phishing detection: a mobile app and a Chrome extension that check links before you open them. Built at the CodeSpring hackathon.",
+    points: [
+      "Serverless AWS backend (API Gateway, Lambda, DynamoDB, SQS) with Amazon Bedrock for AI risk classification; infrastructure as code with Terraform",
+      "AWS Cognito auth shared by the app and the extension",
+      "My part: the mobile app — QR scanning from camera or gallery, async analysis with error handling, sign-up flow, on-device history, dark theme and a senior mode",
+    ],
+    url: "https://github.com/vvitorr/ProofPocket-CodeSpring_2026",
+  },
+  {
+    name: "Airport Network",
+    period: "Feb – May 2026",
+    role: "Team of 4 · Scrum Master (sprint 2)",
+    tags: ["Networking"],
+    stack: "Cisco Packet Tracer, OSPF, VLAN/VTP, DHCP, DNS, VoIP, NAT, ACLs",
+    summary: "Multi-terminal airport network for the Computer Networks course (RCOMP).",
+    points: [
+      "Structured cabling design: cross-connects, fibre backbone, redundancy rules and hardware inventory",
+      "VLANs over VTP, multi-area OSPF (backbone plus one area per terminal), DHCPv4, a DNS hierarchy, DMZ web servers and VoIP between terminals",
+      "Static NAT and layered ACLs: anti-spoofing, DMZ isolation, router self-protection",
+      "My part: Terminal 3 (configuration and docs) and the full campus simulation",
+    ],
+    url: "https://github.com/vvitorr/Airport_Network",
+  },
+  {
+    name: "LogiTrack Rail Management",
+    period: "Oct 2025 – Jan 2026",
+    role: "Team of 6",
+    tags: ["Software"],
+    stack: "Java, PL/SQL (Oracle), C, C++, Assembly",
+    summary: "Rail logistics: route creation, freight management and train scheduling with resource validation. Semester 3 integrative project.",
+    points: [
+      "Route manager with shortest-path generation and a manual station-by-station builder",
+      "Freight and train scheduling that checks wagon and locomotive availability",
+      "My part: the database access layer (PL/SQL functions for facilities, rail lines, segments, trains and wagons) and graph algorithm tests",
+    ],
+    url: "https://github.com/vvitorr/Rail_Management_System",
+  },
+  {
+    name: "Railway Network Simulator",
+    period: "Mar – Jun 2025",
+    role: "Team of 5 · top committer",
+    tags: ["Software"],
+    stack: "Java, JavaFX, GraphStream, Python (Jupyter)",
+    summary: "Rail-tycoon style simulator: maps, cities, industries, stations, rail lines and trains. Semester 2 integrative project.",
+    points: [
+      "My user stories: cities with residential blocks, station building and scenario creation, from design (UML) to tests",
+      "Network graphs rendered with GraphStream inside a JavaFX app",
+      "Statistical analysis of cargo and algorithm performance in Jupyter",
     ],
   },
   {
-    name: "AISafe",
-    stack: "Java, JPA, PostgreSQL, TCP/UDP, ANTLR, C",
-    date: "Mar 2026 – Jun 2026",
+    name: "Plant Floor Manager",
+    period: "Oct 2024 – Jan 2025",
+    role: "Team of 8",
+    tags: ["Software"],
+    stack: "C, Assembly, Java, PL/SQL (Oracle), Python",
+    summary: "Production-plant software: an Oracle plant-floor database, a machine supervisor, a production planning simulator and a PERT/CPM project manager.",
     points: [
-      "Multi-module aviation backoffice in Java with DDD and layered architecture",
-      "Fleet, routes, pilots, weather and flight plans on JPA/Hibernate + PostgreSQL, 1,000+ JUnit tests (JaCoCo)",
-      "Custom TCP protocol for remote ATCC, pilot and weather clients with role-based auth and opcode routing",
-      "Flight-plan DSL (ANTLR4) validated against a C physics simulator (IPC, shared memory)",
-      "UDP audit logging for remote sessions; deployed on ISEP private cloud",
+      "My main part: the machine supervisor in C and Assembly — instruction loading and processing, machine state and alerts",
+      "Production planning simulator and PERT/CPM project manager in Java",
+      "Plant floor management with PL/SQL on Oracle",
     ],
   },
 ];

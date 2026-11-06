@@ -16,9 +16,8 @@ type Win = { id: string; z: number; minimized: boolean; index: number; args?: Op
 
 const nextZ = (ws: Win[]) => Math.max(10, ...ws.map((w) => w.z)) + 1;
 
-const desktopItems: { id: string; label: string; kind: "folder" | "doc"; args: OpenArgs }[] = [
+const desktopItems: { id: string; label: string; kind: "folder"; args: OpenArgs }[] = [
   { id: "projects", label: "Projects", kind: "folder", args: { section: "projects" } },
-  { id: "cv", label: "Vitor_Carneiro_CV", kind: "doc", args: { section: "documents", file: "cv" } },
 ];
 
 export default function Desktop({ icons }: { icons: Record<string, string> }) {

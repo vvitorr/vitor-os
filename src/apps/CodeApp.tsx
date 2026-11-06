@@ -1,13 +1,12 @@
 "use client";
 
 import { ReactNode, useState } from "react";
-import { education, profile, projects, skills } from "@/config";
+import { profile, skills } from "@/config";
 
 const K = ({ c }: { c: string }) => <span className="tk-kw">{c}</span>;
 const S = ({ c }: { c: string }) => <span className="tk-str">&quot;{c}&quot;</span>;
 const P = ({ c }: { c: string }) => <span className="tk-prop">{c}</span>;
 const C = ({ c }: { c: string }) => <span className="tk-com">{c}</span>;
-const H = ({ c }: { c: string }) => <span className="tk-kw">{c}</span>;
 
 const files: Record<string, ReactNode[]> = {
   "skills.ts": [
@@ -29,21 +28,6 @@ const files: Record<string, ReactNode[]> = {
       </>
     )),
     <>{"}"} <K c="as const" />;</>,
-  ],
-  "projects.md": projects.flatMap((p) => [
-    <H key={p.name} c={`## ${p.name}`} />,
-    <C key={p.name + "s"} c={`${p.stack} · ${p.date}`} />,
-    ...p.points.map((pt) => <>- {pt}</>),
-    <></>,
-  ]),
-  "about.md": [
-    <H key="h" c={`# ${profile.name}`} />,
-    <C key="r" c={`${profile.role} · ${profile.location}`} />,
-    <></>,
-    <>{profile.bio}</>,
-    <></>,
-    <H key="e" c="## Education" />,
-    ...education.map((e) => <>- {e.degree} — {e.school} ({e.dates})</>),
   ],
 };
 

@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { apps } from "@/apps";
-import { education, profile, projects, skills } from "@/config";
+import { profile, projects, skills } from "@/config";
 import { useDesktop } from "@/lib/desktop";
 
 type Line = { id: number; text: string; kind: "in" | "out" | "err" };
@@ -11,10 +11,9 @@ const PROMPT = "vitor@vitor-os ~ %";
 const HELP: [string, string][] = [
   ["help", "list commands"],
   ["whoami", "who is this?"],
-  ["about", "short bio"],
-  ["skills", "technical skills"],
-  ["projects", "things I built"],
-  ["education", "where I study"],
+  ["about", "open About Me"],
+  ["projects", "open my projects in Finder"],
+  ["skills", "open my skills in Code"],
   ["contact", "how to reach me"],
   ["open <app>", "open an app (e.g. open github)"],
   ["ls", "list files"],
@@ -72,13 +71,14 @@ export default function TerminalApp() {
       case "whoami":
         return print(`vitor — ${profile.name}, ${profile.role}`);
       case "about":
-        return print(profile.bio);
-      case "skills":
-        return print(Object.entries(skills).map(([g, items]) => `  ${(g + ":").padEnd(22)}${items.join(", ")}`));
+        open("about");
+        return print("Opening About Me…");
       case "projects":
-        return print(projects.flatMap((p) => [`  ${p.name}  (${p.date})`, `    ${p.stack}`]).concat("", "Tip: open finder to browse them."));
-      case "education":
-        return print(education.map((e) => `  ${e.degree} — ${e.school} (${e.dates})`));
+        open("finder", { section: "projects" });
+        return print(`Opening Finder → Projects (${projects.length})…`);
+      case "skills":
+        open("code");
+        return print("Opening Code → skills.ts…");
       case "contact":
         return print([`  email     ${profile.email}`, `  linkedin  ${profile.linkedin}`, `  github    https://github.com/${profile.github}`]);
       case "ls":
