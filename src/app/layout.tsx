@@ -12,14 +12,19 @@ export const metadata: Metadata = {
   description: profile.bio,
 };
 
+const BOOT_SCRIPT = `try{var d=document.documentElement,s=localStorage;
+d.dataset.theme=s.getItem('theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+d.dataset.wallpaper=s.getItem('wallpaper')||'bigsur';
+if(sessionStorage.getItem('booted'))d.dataset.booted='1'}catch(e){}`;
+
 export const viewport: Viewport = { themeColor: "#0a0a0c" };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" data-theme="dark" className={`${geistSans.variable} ${geistMono.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`} suppressHydrationWarning>
       <head>
-        {/* Skip the boot animation on repeat visits in this tab, before first paint. */}
-        <script dangerouslySetInnerHTML={{ __html: "try{if(sessionStorage.getItem('booted'))document.documentElement.dataset.booted='1'}catch(e){}" }} />
+        {/* Before first paint: theme, wallpaper, and skip the boot animation on repeat visits in this tab. */}
+        <script dangerouslySetInnerHTML={{ __html: BOOT_SCRIPT }} />
       </head>
       <body>{children}</body>
     </html>

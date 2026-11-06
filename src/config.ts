@@ -20,7 +20,7 @@ export const languages = [
   { name: "English", level: "B2" },
 ];
 
-export const projects = [
+export const projects: { name: string; stack: string; date: string; url?: string; points: string[] }[] = [
   {
     name: "Multi-Site Campus Network",
     stack: "Cisco IOS, VLANs, HSRP, DHCP, WLC",
@@ -36,6 +36,7 @@ export const projects = [
     name: "ProofPocket",
     stack: "React Native, TypeScript, Python, AWS, Terraform",
     date: "May 2026",
+    url: "https://github.com/vvitorr/ProofPocket-CodeSpring_2026",
     points: [
       "Privacy-first phishing detection platform built at a hackathon (team): Expo mobile app + Chrome extension that intercepts external links",
       "Serverless AWS backend (API Gateway, Lambda, DynamoDB, SQS) with Amazon Bedrock for AI risk classification",
@@ -77,4 +78,14 @@ export const photos: { src: string; caption: string }[] = [
   { src: "/photos/4.svg", caption: "Placeholder" },
   { src: "/photos/5.svg", caption: "Placeholder" },
   { src: "/photos/6.svg", caption: "Placeholder" },
+];
+
+// Desktop wallpapers: free Unsplash License photos, hotlinked from the Unsplash CDN.
+// URLs live in globals.css (html[data-wallpaper=…]) so the right one paints before React loads.
+export const wallpapers = [
+  { id: "bigsur", label: "Big Sur (dynamic)", credit: "Matthew Mentley / Jenna Beekhuis" },
+  { id: "bigsur-coast", label: "Big Sur Coast", credit: "Vijayalakshmi Nidugondi" },
+  { id: "mojave", label: "Mojave", credit: "Matt Artz" },
+  { id: "catalina", label: "Catalina", credit: "Dan Cutler" },
+  { id: "golden-hour", label: "Golden Hour", credit: "Jessica Ruscello" },
 ];
