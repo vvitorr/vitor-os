@@ -15,10 +15,11 @@ async function getPsn() {
   if (!npsso) return null;
   try {
     const auth = await exchangeAccessCodeForAuthTokens(await exchangeNpssoForAccessCode(npsso));
-    const [profile, summary, titles] = await Promise.all([
-      getProfileFromAccountId(auth, "me"),
-      getUserTrophyProfileSummary(auth, "me"),
-      getUserTitles(auth, "me", { limit: 6 }),
+    // The profile endpoint rejects "me"; the trophy summary returns the real account id.
+    const summary = await getUserTrophyProfileSummary(auth, "me");
+    const [profile, titles] = await Promise.all([
+      getProfileFromAccountId(auth, summary.accountId),
+      getUserTitles(auth, summary.accountId, { limit: 6 }),
     ]);
     return {
       onlineId: profile.onlineId,
