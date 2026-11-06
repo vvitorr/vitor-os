@@ -3,6 +3,7 @@ import {
   exchangeAccessCodeForAuthTokens,
   exchangeNpssoForAccessCode,
   getProfileFromAccountId,
+  getProfileFromUserName,
   getUserTitles,
   getUserTrophyProfileSummary,
 } from "psn-api";
@@ -21,8 +22,10 @@ async function getPsn() {
       getProfileFromAccountId(auth, summary.accountId),
       getUserTitles(auth, summary.accountId, { limit: 6 }),
     ]);
+    // Real name (shared on the PSN profile) instead of the username; legacy endpoint keyed by online id.
+    const detail = (await getProfileFromUserName(auth, profile.onlineId)).profile.personalDetail;
     return {
-      onlineId: profile.onlineId,
+      name: [detail?.firstName, detail?.lastName].filter(Boolean).join(" ") || profile.onlineId,
       avatar: profile.avatars.at(-1)?.url ?? null,
       isPlus: profile.isPlus,
       level: summary.trophyLevel,

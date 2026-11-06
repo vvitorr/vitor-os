@@ -3,7 +3,7 @@
 import { useApi } from "@/lib/useApi";
 
 type Psn = {
-  onlineId: string;
+  name: string;
   avatar: string | null;
   isPlus: boolean;
   level: string;
@@ -22,7 +22,7 @@ export default function PsnApp() {
         {/* eslint-disable-next-line @next/next/no-img-element */}
         {p.avatar && <img src={p.avatar} alt="" className="psn-avatar" />}
         <div>
-          <h1>{p.onlineId}</h1>
+          <h1>{p.name}</h1>
           <p className="muted">Level {p.level} · {p.progress}% to next{p.isPlus ? " · PS Plus" : ""}</p>
         </div>
       </div>
