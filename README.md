@@ -3,7 +3,7 @@
 Portfolio styled as a macOS desktop. Next.js 16, deployed on Vercel.
 
 - **Desktop:** menu bar, magnifying liquid-glass dock, draggable and resizable windows with maximize and minimize-to-dock.
-- **Apps:** Finder (projects with tags and Quick Look), About Me, Terminal, Code (skills), Photos, Spotify, PlayStation, Bug Hunt.
+- **Apps:** Finder (projects with tags and Quick Look), About Me, Terminal, Code (skills), Photos, Spotify, PlayStation, Games (Skyline, Packet Hop, Bug Hunt).
 - **Navigation:** Spotlight (`⌘K` / `Ctrl+K`), and a right-click desktop menu to change the wallpaper and switch light/dark.
 
 ## Edit content
@@ -17,7 +17,7 @@ Put real photos in `public/photos/` and list them in `photos`.
 `public/icons/<app id>.png` holds each app's icon. Missing files fall back to a drawn tile.
 The current ones are the real macOS icons rendered from the installed apps. LinkedIn and PlayStation come from their App Store artwork, fitted to the macOS icon grid.
 
-App ids: `finder` `about` `terminal` `code` `github` `photos` `spotify` `playstation` `bughunt` `linkedin` `mail`
+App ids: `finder` `about` `terminal` `code` `github` `photos` `spotify` `playstation` `games` `linkedin` `mail`
 
 To render another installed app's icon:
 
