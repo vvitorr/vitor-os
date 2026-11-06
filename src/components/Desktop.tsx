@@ -7,6 +7,8 @@ import { DesktopContext, type OpenArgs } from "@/lib/desktop";
 import BootScreen from "./BootScreen";
 import ContextMenu from "./ContextMenu";
 import Dock from "./Dock";
+import AppIcon from "./AppIcon";
+import DesktopIcons from "./DesktopIcons";
 import FileIcon from "./FileIcon";
 import MenuBar from "./MenuBar";
 import Spotlight from "./Spotlight";
@@ -15,10 +17,6 @@ import Window from "./Window";
 type Win = { id: string; z: number; minimized: boolean; index: number; args?: OpenArgs };
 
 const nextZ = (ws: Win[]) => Math.max(10, ...ws.map((w) => w.z)) + 1;
-
-const desktopItems: { id: string; label: string; kind: "folder"; args: OpenArgs }[] = [
-  { id: "projects", label: "Projects", kind: "folder", args: { section: "projects" } },
-];
 
 export default function Desktop({ icons }: { icons: Record<string, string> }) {
   // Repeat visits: the inline script in layout sets html[data-booted] before paint and CSS hides the boot.
@@ -87,21 +85,14 @@ export default function Desktop({ icons }: { icons: Record<string, string> }) {
           }}
         />
         <div className="desktop-icons">
-          {desktopItems.map((d) => (
-            <button
-              key={d.id}
-              className={`desktop-icon${selected === d.id ? " selected" : ""}`}
-              onClick={(e) => {
-                setSelected(d.id);
-                // Touch screens and keyboard (detail 0) open on a single activation.
-                if (e.detail === 0 || matchMedia("(pointer: coarse)").matches) open("finder", d.args);
-              }}
-              onDoubleClick={() => open("finder", d.args)}
-            >
-              <FileIcon kind={d.kind} />
-              <span>{d.label}</span>
-            </button>
-          ))}
+          <DesktopIcons
+            selected={selected}
+            onSelect={setSelected}
+            items={[
+              { id: "projects", label: "Projects", icon: <FileIcon kind="folder" />, activate: () => open("finder", { section: "projects" }) },
+              ...apps.filter((a) => a.desktop).map((a) => ({ id: a.id, label: a.name, icon: <AppIcon app={a} />, activate: () => open(a.id) })),
+            ]}
+          />
         </div>
         {wins.map((w) => {
           const app = appById(w.id)!;
@@ -127,7 +118,11 @@ export default function Desktop({ icons }: { icons: Record<string, string> }) {
             </div>
           );
         })}
-        <Dock apps={apps} open={new Set(wins.map((w) => w.id))} onLaunch={(a) => open(a.id)} />
+        <Dock
+          apps={[...apps.filter((a) => !a.desktop), ...apps.filter((a) => a.desktop && wins.some((w) => w.id === a.id))]}
+          open={new Set(wins.map((w) => w.id))}
+          onLaunch={(a) => open(a.id)}
+        />
         {spotlight && <Spotlight onClose={() => setSpotlight(false)} />}
         {menu && <ContextMenu x={menu.x} y={menu.y} onClose={() => setMenu(null)} />}
         {booting && (

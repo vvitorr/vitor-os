@@ -178,14 +178,13 @@ html[data-theme='dark'] .wallpaper {
 
 .desktop-icons {
   position: absolute;
-  top: 44px;
-  right: 14px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+  inset: 0;
+  pointer-events: none;
 }
 
 .desktop-icon {
+  --icon-size: 56px;
+  position: absolute;
   width: 96px;
   display: flex;
   flex-direction: column;
@@ -196,25 +195,35 @@ html[data-theme='dark'] .wallpaper {
   font-size: 12px;
   font-weight: 500;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+  pointer-events: auto;
+  touch-action: none;
 }
 
-.desktop-icon svg {
-  padding: 3px;
-  border-radius: 6px;
+.desktop-icon.dragging {
+  opacity: 0.8;
+  z-index: 5;
 }
 
-.desktop-icon span {
+.desktop-icon-art {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 8px;
+}
+
+.desktop-icon-label {
   padding: 1px 5px;
   border-radius: 4px;
   text-align: center;
-  word-break: break-all;
+  word-break: break-word;
 }
 
-.desktop-icon.selected svg {
+.desktop-icon.selected .desktop-icon-art {
   background: rgba(0, 0, 0, 0.28);
 }
 
-.desktop-icon.selected span {
+.desktop-icon.selected .desktop-icon-label {
   background: var(--select);
   text-shadow: none;
 }

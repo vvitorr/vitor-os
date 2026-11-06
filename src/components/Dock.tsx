@@ -29,7 +29,7 @@ export default function Dock({ apps, open, onLaunch }: { apps: AppDef[]; open: S
         const s = scales[i] ?? 1;
         return (
           <div key={a.id} className="dock-slot">
-            {a.href && !apps[i - 1]?.href && <span className="dock-sep" aria-hidden />}
+            {a.desktop && !apps[i - 1]?.desktop && <span className="dock-sep" aria-hidden />}
             <button
               ref={(el) => {
                 items.current[i] = el;
