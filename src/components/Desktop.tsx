@@ -32,7 +32,13 @@ export default function Desktop({ icons }: { icons: Record<string, string> }) {
     if (!app) return;
     if (app.href) {
       if (app.href.startsWith("mailto:")) location.href = app.href;
-      else window.open(app.href, "_blank", "noopener");
+      else {
+        // No "noopener" feature: it makes window.open return null, hiding whether a popup blocker
+        // (Safari blocks double-click popups) stopped it. Blocked → open in this tab instead.
+        const w = window.open(app.href, "_blank");
+        if (w) w.opener = null;
+        else location.href = app.href;
+      }
       return;
     }
     setWins((ws) => {
